@@ -2,6 +2,7 @@ import os
 import datetime
 
 from dotenv import load_dotenv
+from discord.ext import commands
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -13,7 +14,6 @@ load_dotenv()
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 TUCSONIANS_CALENDAR_ID = os.getenv("CALENDAR_ID")
 
-# Timezones
 MT_TIMEZONE = datetime.timezone(datetime.timedelta(hours=-7))
 CT_TIMEZONE = datetime.timezone(datetime.timedelta(hours=-5))
 PT_TIMEZONE = datetime.timezone(datetime.timedelta(hours=-7))
@@ -21,11 +21,35 @@ PT_TIMEZONE = datetime.timezone(datetime.timedelta(hours=-7))
 def get_date():
     return datetime.datetime.now(MT_TIMEZONE).date()
 
-class GoogleCalendar:
-    def __init__(self):
+class Calendar(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
         self.creds = self.get_google_calendar_creds()
         self.service = build('calendar', 'v3', credentials=self.creds)
         self.calendar_cache = {}
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        # print todays events everyday at 7 AM MT
+        pass
+
+    @commands.command()
+    async def events_day(self, ctx):
+        date = get_date()
+        events = self.get_events(date)
+        
+        if len(events) == 0:
+            await ctx.send(f"No events today.")
+        else:
+            await ctx.send(f"Today's Events:\n")
+            for event in events:
+                await ctx.send(f"{event['summary']} at {event['start'].get('dateTime', event['start'].get('date'))}\n")
+    
+    def get_events(self, date):
+        if date not in self.calendar_cache.keys():
+            self.update_cache(date)
+        
+        return self.calendar_cache[date]
 
     def get_google_calendar_creds(self):
         creds = None
@@ -75,9 +99,5 @@ class GoogleCalendar:
 
         self.calendar_cache[date] = todays_events
 
-    def get_events(self, date):
-        if date not in self.calendar_cache.keys():
-            self.update_cache(date)
-        
-        return self.calendar_cache[date]
-            
+async def setup(bot):
+    await bot.add_cog(Calendar(bot))
