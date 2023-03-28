@@ -1,5 +1,7 @@
 # Cactus Bot
 
+![](cactus.png)
+
 ## Overview
 
 This is a Discord bot for the Tucsonians Discord server.
