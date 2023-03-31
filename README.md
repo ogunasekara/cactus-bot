@@ -18,3 +18,8 @@ This is a Discord bot for the Tucsonians Discord server.
     - CALENDAR_ID - ID of the Google Calendar that the bot will be viewing events on
 6. Activate the python environment with `source env/bin/activate`
 7. Run the bot with `python3 main.py`
+
+## Misc
+
+Hehe hoohoo haha
+
