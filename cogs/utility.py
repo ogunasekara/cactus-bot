@@ -11,8 +11,8 @@ class Utility(commands.Cog):
         await ctx.send("Fuck you Eric.")
 
     @commands.command()
-    async def dice_roll(self, ctx):
-        random_number=random.randint(1,12)
+    async def dice_roll(self, ctx, number_of_sides: int):
+        random_number=random.randint(1,number_of_sides)
         await ctx.send(str(random_number))
         
 
