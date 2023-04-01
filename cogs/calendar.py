@@ -74,8 +74,6 @@ class Calendar(commands.Cog):
         calendar_cache = self.storage.get_calendar_cache()
         if not force_update and date in calendar_cache.keys():
             return
-        
-        print("Updating calendar cache.")
 
         now = date.isoformat() + 'T00:00:00.00-07:00'
         

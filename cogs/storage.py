@@ -13,7 +13,7 @@ class DataStore:
 class Storage(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.data : DataStore = self.load_data()
+        self.data: DataStore = self.load_data()
         self.update_pickle()
 
     def load_data(self):
@@ -39,7 +39,6 @@ class Storage(commands.Cog):
     
     def update_pickle(self):
         pickle.dump(self.data, open(PICKLE_FILEPATH, "wb"))
-
 
 async def setup(bot):
     await bot.add_cog(Storage(bot))
