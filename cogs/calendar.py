@@ -34,7 +34,10 @@ class Calendar(commands.Cog):
         pass
 
     @commands.command()
-    async def events_day(self, ctx):
+    async def events(self, ctx):
+        """
+        Summarizes Google Calendar events for today.
+        """
         date = get_date()
         events = self.get_events(date)
         
