@@ -41,9 +41,14 @@ class Calendar(commands.Cog):
         if len(events) == 0:
             await ctx.send(f"No events today.")
         else:
-            await ctx.send(f"Today's Events:\n")
+            await ctx.send(f"**Today's Events:**\n")
             for event in events:
-                await ctx.send(f"{event['summary']} at {event['start'].get('dateTime', event['start'].get('date'))}\n")
+                # Grab date, convert to datetime object
+                date = event['start'].get('dateTime', event['start'].get('date'))
+                date_obj = datetime.datetime.fromisoformat(date)
+                # Format example: 6:00 PM MST
+                pretty_date = date_obj.strftime('%-I:%M %p MT')
+                await ctx.send(f"- {event['summary']} @ {pretty_date}\n")
     
     def get_events(self, date):
         self.update_cache(date)
