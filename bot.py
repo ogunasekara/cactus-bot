@@ -10,6 +10,7 @@ load_dotenv()
 initial_extensions = (
     'cogs.calendar',
     'cogs.utility',
+    'cogs.storage'
 )
 
 class CactusBot(Bot):
