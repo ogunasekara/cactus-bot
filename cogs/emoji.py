@@ -99,10 +99,8 @@ class Emoji(commands.Cog):
                 return
             
             # check filetype
-            if (pot_emoji.content_type != "image/png" 
-                and pot_emoji.content_type != "image/jpg"
-                and pot_emoji.content_type != "image/jpeg"
-                and pot_emoji.content_type != "image/gif"):
+            allowed_content_types = ["image/png", "image/jpg", "image/jpeg", "image/gif"]
+            if (pot_emoji.content_type not in allowed_content_types):
                 await ctx.reply("Incompatible file type.")
                 return
             
