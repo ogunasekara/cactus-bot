@@ -9,6 +9,7 @@ load_dotenv()
 
 initial_extensions = (
     'cogs.calendar',
+    'cogs.emoji',
     'cogs.utility',
 )
 
