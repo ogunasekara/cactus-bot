@@ -1,5 +1,6 @@
 import os
 import datetime
+import pytz
 
 from dotenv import load_dotenv
 from discord.ext import commands
@@ -43,7 +44,11 @@ class Calendar(commands.Cog):
         else:
             await ctx.send(f"Today's Events:\n")
             for event in events:
-                await ctx.send(f"{event['summary']} at {event['start'].get('dateTime', event['start'].get('date'))}\n")
+                # Grab date, cast to MST timezone
+                date = event['start'].get('dateTime', event['start'].get('date'))(pytz.timezone("America/Phoenix"))
+                # Format example: 06:25 pm MST
+                pretty_date = date.strftime('%I:%M %p %Z')
+                await ctx.send(f"{event['summary']} at {pretty_date}\n")
     
     def get_events(self, date):
         self.update_cache(date)
