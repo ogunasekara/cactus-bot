@@ -26,7 +26,7 @@ class Calendar(commands.Cog):
         self.bot = bot
         self.creds = self.get_google_calendar_creds()
         self.service = build('calendar', 'v3', credentials=self.creds)
-        self.calendar_cache = {}
+        self.storage = self.bot.get_cog('Storage')
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -46,10 +46,8 @@ class Calendar(commands.Cog):
                 await ctx.send(f"{event['summary']} at {event['start'].get('dateTime', event['start'].get('date'))}\n")
     
     def get_events(self, date):
-        if date not in self.calendar_cache.keys():
-            self.update_cache(date)
-        
-        return self.calendar_cache[date]
+        self.update_cache(date)
+        return self.storage.get_calendar_cache()[date]
 
     def get_google_calendar_creds(self):
         creds = None
@@ -73,9 +71,12 @@ class Calendar(commands.Cog):
     
     def update_cache(self, date, force_update=False):
         # don't update if we've already checked this day
-        if not force_update and date in self.calendar_cache.keys():
+        calendar_cache = self.storage.get_calendar_cache()
+        if not force_update and date in calendar_cache.keys():
             return
         
+        print("Updating calendar cache.")
+
         now = date.isoformat() + 'T00:00:00.00-07:00'
         
         events_result = self.service.events().list(
@@ -97,7 +98,8 @@ class Calendar(commands.Cog):
             if start_time.date() == date:
                 todays_events.append(event)
 
-        self.calendar_cache[date] = todays_events
+        calendar_cache[date] = todays_events
+        self.storage.set_calendar_cache(calendar_cache)
 
 async def setup(bot):
     await bot.add_cog(Calendar(bot))
