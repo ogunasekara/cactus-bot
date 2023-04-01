@@ -8,6 +8,7 @@ from discord.ext.commands import Bot
 load_dotenv()
 
 initial_extensions = (
+    'cogs.storage',
     'cogs.calendar',
     'cogs.emoji',
     'cogs.utility',
