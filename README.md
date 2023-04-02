@@ -10,7 +10,7 @@ This is a Discord bot for the Tucsonians Discord server.
 
 ### Local Development Setup (Unix/MacOS)
 
-1. Make Discord bot with all message permissions and [message intent](https://discordpy.readthedocs.io/en/stable/intents.html).
+1. [Make Discord bot](https://www.pythondiscord.com/pages/guides/pydis-guides/contributing/setting-test-server-and-bot-account/) with all message permissions and [message intent](https://discordpy.readthedocs.io/en/stable/intents.html).
 2. [Invite the bot](https://discordpy.readthedocs.io/en/stable/discord.html#inviting-your-bot) to the desired Discord channel with message permissions.
 3. Make a Google Cloud account, [enable Google Calendar API](https://developers.google.com/calendar/api/quickstart/python#enable_the_api), and create an [OAuth 2.0 Client ID](https://developers.google.com/calendar/api/quickstart/python#authorize_credentials_for_a_desktop_application) for this application. Ensure that the OAuth consent screen includes the non-sensitive `.../auth/calendar.calendarlist.readonly` scope added.
 4. Download the OAuth 2.0 Client ID JSON into a file named `credentials.json` in the root directory of this project.
