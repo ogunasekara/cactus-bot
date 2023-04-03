@@ -9,6 +9,7 @@ class DataStore:
     def __init__(self):
         self.calendar_cache = {}
         self.birthday_cache = {}
+        self.log_cache = {}
         
 class Storage(commands.Cog):
     def __init__(self, bot):
@@ -39,6 +40,13 @@ class Storage(commands.Cog):
     
     def update_pickle(self):
         pickle.dump(self.data, open(PICKLE_FILEPATH, "wb"))
+
+    def set_voice_log_cache(self, logs):
+        self.data.log_cache = logs
+        self.update_pickle()
+
+    def get_voice_log_cache(self):
+        return self.data.log_cache
 
 async def setup(bot):
     await bot.add_cog(Storage(bot))

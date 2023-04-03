@@ -12,6 +12,7 @@ initial_extensions = (
     'cogs.calendar',
     'cogs.emoji',
     'cogs.utility',
+    'cogs.economy',
 )
 
 class CactusBot(Bot):
