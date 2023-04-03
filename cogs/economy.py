@@ -1,15 +1,14 @@
 import discord
 import time
+import math
 from discord.ext import commands
 from datetime import datetime
-import math
 
 class Economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.storage = self.bot.get_cog('Storage')
         self.voice_logs = self.storage.get_voice_log_cache()
-        self.voice_logs = {}
         
     # Listener that updates when a user joins and leaves a voice channel
     @commands.Cog.listener()
@@ -52,6 +51,9 @@ class Economy(commands.Cog):
     # Prints out the point leaderboard 
     @commands.command()
     async def leaderboard(self, ctx):
+        """
+        Outputs the top 10 users with the most cactus points
+        """
         embed=discord.Embed(title="Cactus Points Leaderboard", description="", color=0x109319)
         file = discord.File("cactus.png")
         embed.set_thumbnail(url="attachment://cactus.png")
@@ -68,6 +70,9 @@ class Economy(commands.Cog):
     # Prints out individual stats
     @commands.command()
     async def stats(self, ctx):
+        """
+        Prints individual cactus point stats
+        """
         embed=discord.Embed(title="Cactus Points", description="", color=0x109319)
         # Sets the thumbnail to be the profile pic of whoever used the stat command
         embed.set_thumbnail(url=ctx.author.avatar)
