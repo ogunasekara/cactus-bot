@@ -61,10 +61,10 @@ class Economy(commands.Cog):
         embed.add_field(name="", value="**Cactus Points**", inline=True)
         embed.add_field(name="", value="**Time in Voice**", inline=True)
         sorted_users = self.get_top_ten()
-        for i in range(10):
-            embed.add_field(name=sorted_users[i]['member_obj'].name, value= "", inline=True)
-            embed.add_field(name=sorted_users[i]['cactus_points'], value="", inline=True)
-            embed.add_field(name=sorted_users[i]['total_time'], value="", inline=True)
+        for i in range(min(len(sorted_users), 10)):
+           embed.add_field(name=sorted_users[i][1]['member_obj'].name, value= "", inline=True)
+           embed.add_field(name=sorted_users[i][1]['cactus_points'], value="", inline=True)
+           embed.add_field(name=sorted_users[i][1]['total_time'], value="", inline=True)
         await ctx.send(file=file, embed=embed)
 
     # Prints out individual stats
