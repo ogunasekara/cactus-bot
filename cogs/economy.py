@@ -59,12 +59,10 @@ class Economy(commands.Cog):
         embed.set_thumbnail(url="attachment://cactus.png")
         embed.add_field(name="User", value="", inline=True)
         embed.add_field(name="", value="**Cactus Points**", inline=True)
-        embed.add_field(name="", value="**Time in Voice**", inline=True)
         sorted_users = self.get_top_ten()
         for i in range(min(len(sorted_users), 10)):
            embed.add_field(name=sorted_users[i][1]['member_obj'].name, value= "", inline=True)
            embed.add_field(name=sorted_users[i][1]['cactus_points'], value="", inline=True)
-           embed.add_field(name=sorted_users[i][1]['total_time'], value="", inline=True)
         await ctx.send(file=file, embed=embed)
 
     # Prints out individual stats
@@ -77,7 +75,9 @@ class Economy(commands.Cog):
         # Sets the thumbnail to be the profile pic of whoever used the stat command
         embed.set_thumbnail(url=ctx.author.avatar)
         points = "Cactus Points: " + str(self.voice_logs[ctx.message.author.id]['cactus_points'])
-        embed.add_field(name=self.voice_logs[ctx.message.author.id]['member_obj'].name, value=points)
+        time_in_voice = "Time in Voice: " + str(self.voice_logs[ctx.message.author.id]['total_time'])
+        content = points + "\n" + time_in_voice
+        embed.add_field(name=self.voice_logs[ctx.message.author.id]['member_obj'].name, value=content, inline=False)
         await ctx.send(embed=embed)
         
 async def setup(bot):
