@@ -54,7 +54,7 @@ class Economy(commands.Cog):
     @commands.command()
     async def leaderboard(self, ctx):
         """
-        Outputs the top 10 users with the most cactus points
+        Outputs the top 8 users with the most cactus points. Weird formatting happens after displaying 9 people, look into later
         """
         file = discord.File("cactus.png")
 
@@ -62,7 +62,7 @@ class Economy(commands.Cog):
         embed.set_thumbnail(url="attachment://cactus.png")
 
         sorted_users = self.get_top_ten()
-        for i in range(min(len(sorted_users), 9)):
+        for i in range(min(len(sorted_users), 8)):
            user_title = "**User**" if i == 0 else ""
            cactus_title = "**Cactus Points**" if i == 0 else ""
            embed.add_field(name=user_title, value=sorted_users[i][1]['name'], inline=True)
