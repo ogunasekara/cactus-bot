@@ -54,7 +54,7 @@ class Economy(commands.Cog):
     @commands.command()
     async def leaderboard(self, ctx):
         """
-        Outputs the top 10 users with the most cactus points
+        Outputs the top 8 users with the most cactus points. Weird formatting happens after displaying 9 people, look into later
         """
         file = discord.File("cactus.png")
 
@@ -62,13 +62,12 @@ class Economy(commands.Cog):
         embed.set_thumbnail(url="attachment://cactus.png")
 
         sorted_users = self.get_top_ten()
-        for i in range(min(len(sorted_users), 10)):
+        for i in range(min(len(sorted_users), 8)):
            user_title = "**User**" if i == 0 else ""
            cactus_title = "**Cactus Points**" if i == 0 else ""
            embed.add_field(name=user_title, value=sorted_users[i][1]['name'], inline=True)
            embed.add_field(name=cactus_title, value=sorted_users[i][1]['cactus_points'], inline=True)
            embed.add_field(name="", value="", inline=True)
-        #    embed.add_field(name=str, value= "", inline=False)
 
         await ctx.send(file=file, embed=embed)
 
@@ -84,10 +83,10 @@ class Economy(commands.Cog):
         embed.set_thumbnail(url=ctx.author.avatar)
 
         time_in_voice = int(voice_logs[ctx.message.author.id]['total_time'])
-        [_, hours, minutes, _] = self.format_time(time_in_voice)
+        [days, hours, minutes, _] = self.format_time(time_in_voice)
 
         points_str = "Cactus Points: " + str(voice_logs[ctx.message.author.id]['cactus_points'])
-        time_str = "Time in Voice: " + "%d hours, %d min" % (hours, minutes)
+        time_str = "Time in Voice: " + "%d hours, %d min" % ((days * 24) + hours, minutes)
 
         content = points_str + "\n" + time_str
 
