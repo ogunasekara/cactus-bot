@@ -19,7 +19,7 @@ This is a Discord bot for the Tucsonians Discord server.
     - DISCORD_CHANNEL_ID - Channel ID that bot will be posting in
     - CALENDAR_ID - ID of the Google Calendar that the bot will be viewing events on
     - CALENDAR_TOKEN_PORT - Port of the verification server for creating API token - this should be 0 unless using Windows with WSL.
-6. Activate the python environment with `source env/bin/activate`
+6. Create a python environment with `virtualenv -p python3 env` and activate this environment with `source env/bin/activate`.
 7. Install required dependencies with `pip install -r requirements.txt`
 8. Run the bot with `python3 main.py`
 9. On the first run, you will get a prompt to sign into your google account. Make sure this account is added to the desired calendar. This step creates `token.json` in your directory.
