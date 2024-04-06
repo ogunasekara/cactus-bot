@@ -4,9 +4,11 @@
 
 <img src="cactus.png" height="100">
 
-This is a Discord bot for the Tucsonians Discord server.
+This is a Discord bot for the Tucsonians Discord server. The bot relies on a PostgreSQL datastore and utilizes Docker containerization to quickly compose the entire application.
 
 ## Development
+
+This bot relies on Docker to run all necessary components. As such, installing [Docker Desktop](https://www.docker.com/products/docker-desktop/) is a pre-requisite for development and deployment.
 
 ### Local Development Setup (Unix/MacOS)
 
@@ -18,19 +20,14 @@ This is a Discord bot for the Tucsonians Discord server.
     - DISCORD_TOKEN - Token for bot created from discord developer portal
     - DISCORD_CHANNEL_ID - Channel ID that bot will be posting in
     - CALENDAR_ID - ID of the Google Calendar that the bot will be viewing events on
-    - CALENDAR_TOKEN_PORT - Port of the verification server for creating API token - this should be 0 unless using Windows with WSL.
-6. Activate the python environment with `source env/bin/activate`
-7. Install required dependencies with `pip install -r requirements.txt`
-8. Run the bot with `python3 main.py`
-9. On the first run, you will get a prompt to sign into your google account. Make sure this account is added to the desired calendar. This step creates `token.json` in your directory.
+6. Switch to the virtual environment with `virtualenv env && source env/bin/activate`
+7. Install the local dependencies into the environment with `pip install -r requirements.txt`
+7. If you do not have `token.json` in your project's root directory, do an initial run of the application and follow the output prompts using `python main.py`. If you do, skip to step 9.
+8. After following the steps and verifying that `token.json` is now in the directory, press `ctrl+c` to exit the application.
+9. Build the Dockerfile and run the Docker composition with `./run-bot.sh`
+10. On the first run, you will get a prompt to sign into your google account. Make sure this account is added to the desired calendar. This step creates `token.json` in your directory.
 
 ### Local Development Setup (Windows)
 
 1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and clone project into WSL.
 2. Follow remaining steps from the Unix setup instructions.
-3. If you get an `Unable to connect` warning after the token creation step, find the port in the URL (URL should start with `localhost:<port>`) then change the CALENDAR_TOKEN_PORT environment variable to that port. Rerun `python main.py` after fixing this and go through the token creation process again.
-
-## Misc
-
-Hehe hoohoo haha
-
