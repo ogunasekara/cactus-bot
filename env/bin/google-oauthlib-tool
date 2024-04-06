@@ -1,4 +1,4 @@
-#!/Users/oshadha/Documents/Code/cactus-bot/env/bin/python3
+#!/home/oshadha/code/cactus-bot/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
