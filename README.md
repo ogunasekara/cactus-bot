@@ -20,12 +20,12 @@ This bot relies on Docker to run all necessary components. As such, installing [
     - DISCORD_TOKEN - Token for bot created from discord developer portal
     - DISCORD_CHANNEL_ID - Channel ID that bot will be posting in
     - CALENDAR_ID - ID of the Google Calendar that the bot will be viewing events on
-6. Switch to the virtual environment with `virtualenv env && source env/bin/activate`
+6. Switch to the virtual environment with `python -m venv env && source env/bin/activate`
 7. Install the local dependencies into the environment with `pip install -r requirements.txt`
-7. If you do not have `token.json` in your project's root directory, do an initial run of the application and follow the output prompts using `python main.py`. If you do, skip to step 9.
-8. After following the steps and verifying that `token.json` is now in the directory, press `ctrl+c` to exit the application.
-9. Build the Dockerfile and run the Docker composition with `./run-bot.sh`
-10. On the first run, you will get a prompt to sign into your google account. Make sure this account is added to the desired calendar. This step creates `token.json` in your directory.
+8. If you do not have `token.json` in your project's root directory, do an initial run of the application and follow the output prompts using `python main.py`. If you do, skip to step 9.
+9. After following the steps and verifying that `token.json` is now in the directory, press `ctrl+c` to exit the application.
+10. Build the Dockerfile and run the Docker composition with `./run-bot.sh`
+11. On the first run, you will get a prompt to sign into your google account. Make sure this account is added to the desired calendar. This step creates `token.json` in your directory.
 
 ### Local Development Setup (Windows)
 
