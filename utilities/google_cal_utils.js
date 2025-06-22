@@ -73,9 +73,18 @@ module.exports = {
    */
   async listEvents(auth) {
     const calendar = google.calendar({version: 'v3', auth});
+
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+
+    const endOfWeek = new Date(today);
+    endOfWeek.setDate(today.getDate() + (6 - dayOfWeek) + 70);
+    endOfWeek.setHours(23, 59, 59, 999);
+
     const res = await calendar.events.list({
       calendarId: calendarId,
-      timeMin: new Date().toISOString(),
+      timeMin: today.toISOString(),
+      timeMax: endOfWeek.toISOString(),
       maxResults: 10,
       singleEvents: true,
       orderBy: 'startTime',
@@ -86,7 +95,7 @@ module.exports = {
     }
     return events.map((event, i) => {
       const start = event.start.dateTime || event.start.date;
-      return `${start} - ${event.summary}`;
+      return `${event.summary} @ ${start}`;
     });
   }
 };

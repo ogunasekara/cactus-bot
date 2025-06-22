@@ -8,6 +8,11 @@ module.exports = {
 	async execute(interaction) {
     const client = await authorize();
     const events = await listEvents(client);
-		await interaction.reply(events.join('\n'));
+
+    if (events.length > 0) {
+      await interaction.reply(" - " + events.join('\n - '));
+    } else {
+      await interaction.reply("No upcoming events.");
+    }
 	},
 };
