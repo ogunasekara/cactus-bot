@@ -1,7 +1,8 @@
-*.env
-*.pickle
+node_modules/
+data/
+
+config.json
 credentials.json
 token.json
 
-env/
-__pycache__/
+.DS_Store
