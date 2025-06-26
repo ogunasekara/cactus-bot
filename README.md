@@ -4,30 +4,45 @@
 
 <img src="cactus.png" height="100">
 
-This is a Discord bot for the Tucsonians Discord server. The bot relies on a PostgreSQL datastore and utilizes Docker containerization to quickly compose the entire application.
+This is a Discord bot for the Tucsonians Discord server. The bot provides event management functionality with local file-based storage.
+
+## Features
+
+- **Event Management**: Create, list, update, and delete events
+- **Local Storage**: Events are stored locally in JSON files
+- **User Permissions**: Users can only modify events they created
+- **Rich Embeds**: Beautiful Discord embeds for event display
 
 ## Development
 
-This bot relies on Docker to run all necessary components. As such, installing [Docker Desktop](https://www.docker.com/products/docker-desktop/) is a pre-requisite for development and deployment.
+### Prerequisites
 
-### Local Development Setup (Unix/MacOS)
+- Node.js (v16 or higher)
+- npm or yarn
 
-1. [Make Discord bot](https://www.pythondiscord.com/pages/guides/pydis-guides/contributing/setting-test-server-and-bot-account/) with all message permissions and [message intent](https://discordpy.readthedocs.io/en/stable/intents.html).
-2. [Invite the bot](https://discordpy.readthedocs.io/en/stable/discord.html#inviting-your-bot) to the desired Discord channel with message permissions.
-3. Make a Google Cloud account, [enable Google Calendar API](https://developers.google.com/calendar/api/quickstart/python#enable_the_api), and create an [OAuth 2.0 Client ID](https://developers.google.com/calendar/api/quickstart/python#authorize_credentials_for_a_desktop_application) for this application. Ensure that the OAuth consent screen includes the non-sensitive `.../auth/calendar.calendarlist.readonly` scope added.
-4. Download the OAuth 2.0 Client ID JSON into a file named `credentials.json` in the root directory of this project.
-5. Create a `.env` file with the following variables defined:
-    - DISCORD_TOKEN - Token for bot created from discord developer portal
-    - DISCORD_CHANNEL_ID - Channel ID that bot will be posting in
-    - CALENDAR_ID - ID of the Google Calendar that the bot will be viewing events on
-6. Switch to the virtual environment with `virtualenv env && source env/bin/activate`
-7. Install the local dependencies into the environment with `pip install -r requirements.txt`
-7. If you do not have `token.json` in your project's root directory, do an initial run of the application and follow the output prompts using `python main.py`. If you do, skip to step 9.
-8. After following the steps and verifying that `token.json` is now in the directory, press `ctrl+c` to exit the application.
-9. Build the Dockerfile and run the Docker composition with `./run-bot.sh`
-10. On the first run, you will get a prompt to sign into your google account. Make sure this account is added to the desired calendar. This step creates `token.json` in your directory.
+### Local Development Setup
 
-### Local Development Setup (Windows)
+1. [Create a Discord bot](https://discord.com/developers/applications) with appropriate permissions
+2. [Invite the bot](https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands) to your Discord server
+3. Copy `config/config_sample.json` to `config/config.json` and fill in your bot details:
+   - `token`: Your Discord bot token
+   - `clientId`: Your Discord application client ID
+   - `guildId`: Your Discord server ID
+4. Install dependencies: `npm install`
+5. Deploy slash commands: `node deploy-commands.js`
+6. Start the bot: `node index.js`
 
-1. [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and clone project into WSL.
-2. Follow remaining steps from the Unix setup instructions.
+### Available Commands
+
+- `/events` - List upcoming events (default: next 14 days)
+- `/create-event` - Create a new event
+- `/update-event` - Update an existing event
+- `/delete-event` - Delete an event
+
+## Architecture
+
+The bot uses a modular architecture with:
+- **EventManager**: Core event management logic
+- **FileStorage**: Local JSON file storage backend
+- **StorageInterface**: Abstract interface for extensible storage backends
+- **Slash Commands**: Discord.js slash command system
