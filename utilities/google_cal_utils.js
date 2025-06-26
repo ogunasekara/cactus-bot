@@ -78,7 +78,7 @@ module.exports = {
     const dayOfWeek = today.getDay();
 
     const endOfWeek = new Date(today);
-    endOfWeek.setDate(today.getDate() + (6 - dayOfWeek) + 70);
+    endOfWeek.setDate(today.getDate() + (6 - dayOfWeek) + 14);
     endOfWeek.setHours(23, 59, 59, 999);
 
     const res = await calendar.events.list({
