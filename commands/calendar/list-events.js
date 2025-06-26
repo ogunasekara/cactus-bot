@@ -5,8 +5,8 @@ const eventManager = new EventManager();
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('events')
-		.setDescription('Returns a list of upcoming events.')
+		.setName('list-events')
+		.setDescription('List upcoming events')
 		.addIntegerOption(option =>
 			option.setName('days')
 				.setDescription('Number of days ahead to show (default: 14)')
@@ -146,4 +146,4 @@ module.exports = {
 			await interaction.editReply('❌ An error occurred while fetching events. Please try again.');
 		}
 	},
-};
+}; 
