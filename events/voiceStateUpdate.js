@@ -1,5 +1,4 @@
 const { Events } = require('discord.js');
-const { addPoints, canEarnPointsToday } = require('../utilities/cactus_points.js');
 
 // Store active voice sessions
 const activeVoiceSessions = new Map();
@@ -7,31 +6,34 @@ const activeVoiceSessions = new Map();
 module.exports = {
 	name: Events.VoiceStateUpdate,
 	async execute(oldState, newState) {
+		// Handle edge cases
+		if (!newState.member || !newState.member.user) {
+			console.log('Invalid voice state update: missing member or user');
+			return;
+		}
+
 		const userId = newState.member.user.id;
 		
 		// User joined a voice channel
 		if (!oldState.channelId && newState.channelId) {
-			console.log(`User ${newState.member.user.username} joined voice channel: ${newState.channel.name}`);
+			const channelName = newState.channel ? newState.channel.name : 'Unknown Channel';
+			console.log(`User ${newState.member.user.username} joined voice channel: ${channelName}`);
 			
-			// Check if user can earn points today
-			if (canEarnPointsToday(userId)) {
-				// Start tracking this user's voice session
-				activeVoiceSessions.set(userId, {
-					channelId: newState.channelId,
-					channelName: newState.channel.name,
-					joinTime: Date.now(),
-					lastPointTime: Date.now()
-				});
-				
-				console.log(`Started tracking voice session for ${newState.member.user.username}`);
-			} else {
-				console.log(`User ${newState.member.user.username} has already reached daily limit`);
-			}
+			// Start tracking this user's voice session
+			activeVoiceSessions.set(userId, {
+				channelId: newState.channelId,
+				channelName: channelName,
+				joinTime: Date.now(),
+				lastPointTime: Date.now(),
+			});
+
+			console.log(`Started tracking voice session for ${newState.member.user.username}`);
 		}
 		
 		// User left a voice channel
 		if (oldState.channelId && !newState.channelId) {
-			console.log(`User ${oldState.member.user.username} left voice channel: ${oldState.channel.name}`);
+			const oldChannelName = oldState.channel ? oldState.channel.name : 'Unknown Channel';
+			console.log(`User ${oldState.member.user.username} left voice channel: ${oldChannelName}`);
 			
 			// Remove from active sessions
 			if (activeVoiceSessions.has(userId)) {
@@ -46,13 +48,15 @@ module.exports = {
 		
 		// User moved between voice channels
 		if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
-			console.log(`User ${newState.member.user.username} moved from ${oldState.channel.name} to ${newState.channel.name}`);
+			const oldChannelName = oldState.channel ? oldState.channel.name : 'Unknown Channel';
+			const newChannelName = newState.channel ? newState.channel.name : 'Unknown Channel';
+			console.log(`User ${newState.member.user.username} moved from ${oldChannelName} to ${newChannelName}`);
 			
 			// Update the session with new channel info
 			if (activeVoiceSessions.has(userId)) {
 				const session = activeVoiceSessions.get(userId);
 				session.channelId = newState.channelId;
-				session.channelName = newState.channel.name;
+				session.channelName = newChannelName;
 			}
 		}
 	},
