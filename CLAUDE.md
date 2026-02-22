@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Cactus Bot is a Discord.js v14 bot for the Tucsonians Discord server. It provides event management, a points/gamification system, and utility commands.
+Cactus Bot is a Discord.js v14 bot for the Tucsonians Discord server. It provides event management, a points/gamification system, emoji management, and utility commands.
 
 ## Commands
 
@@ -32,6 +32,7 @@ npm run test:coverage
 
 - **Event Management** — CRUD for server events with a pluggable storage backend. `utilities/event_manager.js` is the business logic layer, `utilities/storage_interface.js` defines the abstract interface, and `utilities/file_storage.js` is the default JSON file implementation.
 - **Points System** — Users earn 1 point/minute in voice channels (daily cap: 100). `utilities/cactus_points.js` handles point logic, `utilities/points_timer.js` runs the interval-based awarding, and `events/voiceStateUpdate.js` tracks voice activity.
+- **Emoji Management** — Custom emoji submission with admin approval via reactions. `commands/emoji/` contains the submission command, slot checker, and resizer tool link.
 
 **Directory layout:**
 - `commands/<category>/` — Slash commands organized by feature (calendar, emoji, utility)
