@@ -32,6 +32,46 @@ This is a Discord bot for the Tucsonians Discord server. The bot provides event 
 5. Deploy slash commands: `node deploy-commands.js`
 6. Start the bot: `node index.js`
 
+## Docker Setup
+
+### Prerequisites
+
+- Docker
+- Docker Compose (v2, `docker compose`)
+
+### Run with Docker
+
+1. Copy `config/config_sample.json` to `config/config.json` and fill in:
+   - `token`
+   - `clientId`
+   - `guildId`
+2. Build the image:
+   - `docker compose build`
+3. Deploy slash commands (run when commands change):
+   - `docker compose run --rm bot npm run deploy-commands`
+4. Start the bot:
+   - `docker compose up -d`
+5. View logs:
+   - `docker compose logs -f bot`
+6. Stop the bot:
+   - `docker compose down`
+
+Notes:
+- Event data is persisted in `./data` on your host.
+- `config/config.json` is mounted read-only into the container.
+
+### Makefile Shortcuts
+
+You can use the included `Makefile` for common Docker operations:
+
+- `make build` - Build the Docker image
+- `make up` - Start the bot in background
+- `make logs` - Follow bot logs
+- `make deploy` - Deploy slash commands
+- `make ps` - Show container status
+- `make restart` - Restart the bot container
+- `make down` - Stop and remove the container
+
 ### Available Commands
 
 - `/events` - List upcoming events (default: next 14 days)

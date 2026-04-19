@@ -1,0 +1,9 @@
+services:
+  bot:
+    build: .
+    container_name: cactus-bot
+    restart: unless-stopped
+    volumes:
+      - ./config/config.json:/app/config/config.json:ro
+      - ./data:/app/data
+    command: npm start
