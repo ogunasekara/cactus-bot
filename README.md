@@ -92,7 +92,7 @@ You can use the included `Makefile` for common Docker operations:
 - `make restart` - Restart the bot container
 - `make down` - Stop and remove the container
 
-### Testing
+## Testing
 
 ```bash
 npm test              # Run tests
