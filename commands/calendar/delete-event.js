@@ -1,5 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const EventManager = require("../../utilities/event_manager");
+const { createEventActionEmbed } = require("../../utilities/event_embeds");
 
 const eventManager = new EventManager();
 
@@ -37,42 +38,10 @@ module.exports = {
       // Delete the event
       const deletedEvent = await eventManager.deleteEvent(eventId);
 
-      // Create embed response
-      const embed = new EmbedBuilder()
-        .setColor(0xff6b6b)
-        .setTitle("🗑️ Event Deleted Successfully")
-        .addFields(
-          { name: "Title", value: deletedEvent.title, inline: true },
-          {
-            name: "Start Time",
-            value: new Date(deletedEvent.startTime).toLocaleString(),
-            inline: true,
-          },
-          { name: "Event ID", value: deletedEvent.id, inline: true },
-        )
-        .setTimestamp();
-
-      if (deletedEvent.description) {
-        embed.addFields({
-          name: "Description",
-          value: deletedEvent.description,
-          inline: false,
-        });
-      }
-      if (deletedEvent.endTime) {
-        embed.addFields({
-          name: "End Time",
-          value: new Date(deletedEvent.endTime).toLocaleString(),
-          inline: true,
-        });
-      }
-      if (deletedEvent.location) {
-        embed.addFields({
-          name: "Location",
-          value: deletedEvent.location,
-          inline: true,
-        });
-      }
+      const embed = createEventActionEmbed(deletedEvent, {
+        color: 0xff6b6b,
+        title: "🗑️ Event Deleted Successfully",
+      });
 
       await interaction.editReply({ embeds: [embed] });
     } catch (error) {
