@@ -38,21 +38,13 @@ export default defineConfig([
         },
       ],
 
-      "brace-style": [
-        "error",
-        "stroustrup",
-        {
-          allowSingleLine: true,
-        },
-      ],
-
       "comma-dangle": ["error", "always-multiline"],
       "comma-spacing": "error",
       "comma-style": "error",
       curly: ["error", "multi-line", "consistent"],
       "dot-location": ["error", "property"],
       "handle-callback-err": "off",
-      indent: ["error", "tab"],
+      indent: ["error", 2],
       "keyword-spacing": "error",
 
       "max-nested-callbacks": [
@@ -96,7 +88,6 @@ export default defineConfig([
       "no-var": "error",
       "object-curly-spacing": ["error", "always"],
       "prefer-const": "error",
-      quotes: ["error", "single"],
       semi: ["error", "always"],
       "space-before-blocks": "error",
 
