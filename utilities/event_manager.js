@@ -1,4 +1,4 @@
-const FileStorage = require('./file_storage');
+const FileStorage = require("./file_storage");
 
 class EventManager {
   constructor(storageBackend = null) {
@@ -38,17 +38,17 @@ class EventManager {
    */
   async createEvent(eventData) {
     await this.ensureInitialized();
-    
+
     const newEvent = {
       id: this.generateId(),
       title: eventData.title,
-      description: eventData.description || '',
+      description: eventData.description || "",
       startTime: eventData.startTime,
       endTime: eventData.endTime,
-      location: eventData.location || '',
+      location: eventData.location || "",
       createdBy: eventData.createdBy,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     return await this.storage.addEvent(newEvent);
@@ -78,7 +78,7 @@ class EventManager {
     const now = new Date();
     const endDate = new Date();
     endDate.setDate(now.getDate() + daysAhead);
-    
+
     return await this.storage.getEventsInRange(now, endDate);
   }
 
@@ -138,4 +138,4 @@ class EventManager {
   }
 }
 
-module.exports = EventManager; 
+module.exports = EventManager;

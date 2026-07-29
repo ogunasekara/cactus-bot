@@ -1,9 +1,9 @@
-const StorageInterface = require('./storage_interface');
+const StorageInterface = require("./storage_interface");
 
 /**
  * Example database storage implementation
  * This demonstrates how to extend the system for database integration
- * 
+ *
  * To use this, you would need to:
  * 1. Install a database driver (e.g., mysql2, pg, sqlite3)
  * 2. Set up your database connection
@@ -23,7 +23,7 @@ class DatabaseStorage extends StorageInterface {
   async initialize() {
     // Example: Initialize database connection
     // this.connection = await createConnection(this.connectionConfig);
-    
+
     // Example: Create events table if it doesn't exist
     /*
     await this.connection.execute(`
@@ -40,8 +40,8 @@ class DatabaseStorage extends StorageInterface {
       )
     `);
     */
-    
-    console.log('Database storage initialized (example implementation)');
+
+    console.log("Database storage initialized (example implementation)");
   }
 
   /**
@@ -65,7 +65,7 @@ class DatabaseStorage extends StorageInterface {
       updatedAt: row.updated_at
     }));
     */
-    
+
     // Placeholder return for example
     return [];
   }
@@ -78,7 +78,7 @@ class DatabaseStorage extends StorageInterface {
     /*
     // Clear existing events
     await this.connection.execute('DELETE FROM events');
-    
+
     // Insert all events
     for (const event of events) {
       await this.connection.execute(`
@@ -90,8 +90,10 @@ class DatabaseStorage extends StorageInterface {
       ]);
     }
     */
-    
-    console.log(`Saving ${events.length} events to database (example implementation)`);
+
+    console.log(
+      `Saving ${events.length} events to database (example implementation)`,
+    );
   }
 
   /**
@@ -108,8 +110,10 @@ class DatabaseStorage extends StorageInterface {
       event.location, event.createdBy, event.createdAt, event.updatedAt
     ]);
     */
-    
-    console.log(`Adding event ${event.id} to database (example implementation)`);
+
+    console.log(
+      `Adding event ${event.id} to database (example implementation)`,
+    );
     return event;
   }
 
@@ -121,7 +125,7 @@ class DatabaseStorage extends StorageInterface {
     /*
     const updateFields = [];
     const updateValues = [];
-    
+
     if (eventData.title) {
       updateFields.push('title = ?');
       updateValues.push(eventData.title);
@@ -142,19 +146,21 @@ class DatabaseStorage extends StorageInterface {
       updateFields.push('location = ?');
       updateValues.push(eventData.location);
     }
-    
+
     updateFields.push('updated_at = ?');
     updateValues.push(new Date().toISOString());
     updateValues.push(eventId);
-    
+
     await this.connection.execute(`
       UPDATE events SET ${updateFields.join(', ')} WHERE id = ?
     `, updateValues);
-    
+
     return await this.getEventById(eventId);
     */
-    
-    console.log(`Updating event ${eventId} in database (example implementation)`);
+
+    console.log(
+      `Updating event ${eventId} in database (example implementation)`,
+    );
     return { id: eventId, ...eventData };
   }
 
@@ -168,12 +174,14 @@ class DatabaseStorage extends StorageInterface {
     if (!event) {
       throw new Error('Event not found');
     }
-    
+
     await this.connection.execute('DELETE FROM events WHERE id = ?', [eventId]);
     return event;
     */
-    
-    console.log(`Deleting event ${eventId} from database (example implementation)`);
+
+    console.log(
+      `Deleting event ${eventId} from database (example implementation)`,
+    );
     return { id: eventId };
   }
 
@@ -186,11 +194,11 @@ class DatabaseStorage extends StorageInterface {
     const [rows] = await this.connection.execute(`
       SELECT * FROM events WHERE id = ?
     `, [eventId]);
-    
+
     if (rows.length === 0) {
       return null;
     }
-    
+
     const row = rows[0];
     return {
       id: row.id,
@@ -204,8 +212,10 @@ class DatabaseStorage extends StorageInterface {
       updatedAt: row.updated_at
     };
     */
-    
-    console.log(`Getting event ${eventId} from database (example implementation)`);
+
+    console.log(
+      `Getting event ${eventId} from database (example implementation)`,
+    );
     return null;
   }
 
@@ -217,30 +227,30 @@ class DatabaseStorage extends StorageInterface {
     /*
     let query = 'SELECT * FROM events WHERE 1=1';
     const params = [];
-    
+
     if (criteria.query) {
       query += ' AND (title LIKE ? OR description LIKE ?)';
       const searchTerm = `%${criteria.query}%`;
       params.push(searchTerm, searchTerm);
     }
-    
+
     if (criteria.userId) {
       query += ' AND created_by = ?';
       params.push(criteria.userId);
     }
-    
+
     if (criteria.startDate) {
       query += ' AND start_time >= ?';
       params.push(criteria.startDate);
     }
-    
+
     if (criteria.endDate) {
       query += ' AND start_time <= ?';
       params.push(criteria.endDate);
     }
-    
+
     query += ' ORDER BY start_time ASC';
-    
+
     const [rows] = await this.connection.execute(query, params);
     return rows.map(row => ({
       id: row.id,
@@ -254,8 +264,10 @@ class DatabaseStorage extends StorageInterface {
       updatedAt: row.updated_at
     }));
     */
-    
-    console.log('Searching events in database (example implementation)');
+
+    console.log(
+      `Searching events in database (example implementation) with criteria ${criteria}`,
+    );
     return [];
   }
 
@@ -283,9 +295,9 @@ class DatabaseStorage extends StorageInterface {
       await this.connection.end();
     }
     */
-    
-    console.log('Database connection closed (example implementation)');
+
+    console.log("Database connection closed (example implementation)");
   }
 }
 
-module.exports = DatabaseStorage; 
+module.exports = DatabaseStorage;
