@@ -46,7 +46,7 @@ A Discord.js v14 bot for the Tucsonians Discord server. It provides event manage
 2. [Invite the bot](https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands) to your Discord server
 3. Copy `config/config_sample.json` to `config/config.json` and fill in your bot details:
    - `token`: Your Discord bot token
-   - `clientId`: Your Discord application client ID
+   - `applicationId`: Your Discord bot's application ID
    - `guildId`: Your Discord server ID
 4. Install dependencies: `npm install`
 5. Deploy slash commands: `node deploy-commands.js`
@@ -63,7 +63,7 @@ A Discord.js v14 bot for the Tucsonians Discord server. It provides event manage
 
 1. Copy `config/config_sample.json` to `config/config.json` and fill in:
    - `token`
-   - `clientId`
+   - `applicationId`
    - `guildId`
 2. Build the image:
    - `docker compose build`
