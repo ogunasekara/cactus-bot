@@ -1,8 +1,8 @@
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Allow test file path to be overridden
-let POINTS_FILE = path.join(__dirname, '../../data/cactus_points.json');
+let POINTS_FILE = path.join(__dirname, "../../data/cactus_points.json");
 
 // Function to set test file path
 function setTestFilePath(testPath) {
@@ -28,10 +28,10 @@ function initializePointsFile() {
 // Load points data from file
 function loadPoints() {
   try {
-    const data = fs.readFileSync(POINTS_FILE, 'utf8');
+    const data = fs.readFileSync(POINTS_FILE, "utf8");
     return JSON.parse(data);
   } catch (error) {
-    console.error('Error loading points data:', error);
+    console.error("Error loading points data:", error);
     return {};
   }
 }
@@ -41,13 +41,13 @@ function savePoints(pointsData) {
   try {
     fs.writeFileSync(POINTS_FILE, JSON.stringify(pointsData, null, 2));
   } catch (error) {
-    console.error('Error saving points data:', error);
+    console.error("Error saving points data:", error);
   }
 }
 
 // Get current date in YYYY-MM-DD format
 function getCurrentDate() {
-  return new Date().toISOString().split('T')[0];
+  return new Date().toISOString().split("T")[0];
 }
 
 // Get user's points
@@ -60,27 +60,27 @@ function getUserPoints(userId) {
 function addPoints(userId, pointsToAdd) {
   const pointsData = loadPoints();
   const currentDate = getCurrentDate();
-  
+
   if (!pointsData[userId]) {
     pointsData[userId] = { total: 0, daily: {} };
   }
-  
+
   if (!pointsData[userId].daily[currentDate]) {
     pointsData[userId].daily[currentDate] = 0;
   }
-  
+
   // Check daily limit (100 points max per day)
   const currentDaily = pointsData[userId].daily[currentDate];
   const remainingDaily = Math.max(0, 100 - currentDaily);
   const actualPointsToAdd = Math.min(pointsToAdd, remainingDaily);
-  
+
   if (actualPointsToAdd > 0) {
     pointsData[userId].total += actualPointsToAdd;
     pointsData[userId].daily[currentDate] += actualPointsToAdd;
     savePoints(pointsData);
     return actualPointsToAdd;
   }
-  
+
   return 0;
 }
 
@@ -88,11 +88,11 @@ function addPoints(userId, pointsToAdd) {
 function getDailyPoints(userId) {
   const pointsData = loadPoints();
   const currentDate = getCurrentDate();
-  
+
   if (!pointsData[userId] || !pointsData[userId].daily[currentDate]) {
     return 0;
   }
-  
+
   return pointsData[userId].daily[currentDate];
 }
 
@@ -114,11 +114,11 @@ function getLeaderboard(limit = 10) {
   const users = Object.entries(pointsData)
     .map(([userId, data]) => ({
       userId,
-      total: data.total || 0
+      total: data.total || 0,
     }))
     .sort((a, b) => b.total - a.total)
     .slice(0, limit);
-  
+
   return users;
 }
 
@@ -147,5 +147,5 @@ module.exports = {
   clearAllPoints,
   resetUserPoints,
   loadPoints,
-  savePoints
-}; 
+  savePoints,
+};

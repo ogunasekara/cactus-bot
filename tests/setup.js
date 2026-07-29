@@ -1,9 +1,9 @@
 // Test setup file
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require("node:fs");
+const path = require("node:path");
 
 // Create test data directory
-const testDataDir = path.join(__dirname, 'test-data');
+const testDataDir = path.join(__dirname, "test-data");
 if (!fs.existsSync(testDataDir)) {
   fs.mkdirSync(testDataDir, { recursive: true });
 }
@@ -18,4 +18,4 @@ global.console = {
 };
 
 // Global test utilities
-global.TEST_DATA_DIR = testDataDir; 
+global.TEST_DATA_DIR = testDataDir;

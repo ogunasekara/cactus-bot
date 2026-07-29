@@ -1,26 +1,27 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('slots')
-		.setDescription('Check how many available emoji slots are remaining.'),
-	async execute(interaction) {
+  data: new SlashCommandBuilder()
+    .setName("slots")
+    .setDescription("Check how many available emoji slots are remaining."),
+  async execute(interaction) {
+    let emoji_count = 0;
+    let animated_emoji_count = 0;
+    const emoji_limit = 250;
 
-    var emoji_count = 0;
-    var animated_emoji_count = 0;
-    var emoji_limit = 250;
-
-    for (var emoji of interaction.guild.emojis.cache.values()) {
+    for (const emoji of interaction.guild.emojis.cache.values()) {
       if (emoji.animated) {
-        animated_emoji_count += 1
+        animated_emoji_count += 1;
       } else {
-        emoji_count += 1
+        emoji_count += 1;
       }
     }
-    
-    remaining_emojis = emoji_limit - emoji_count
-    remaining_animated_emojis = emoji_limit - animated_emoji_count
 
-		await interaction.reply(`There are ${remaining_emojis} available emoji slots and ${remaining_animated_emojis} available animated emoji slots remaining!`);
-	},
+    const remaining_emojis = emoji_limit - emoji_count;
+    const remaining_animated_emojis = emoji_limit - animated_emoji_count;
+
+    await interaction.reply(
+      `There are ${remaining_emojis} available emoji slots and ${remaining_animated_emojis} available animated emoji slots remaining!`,
+    );
+  },
 };

@@ -35,6 +35,7 @@ npm run test:coverage
 - **Emoji Management** — Custom emoji submission with admin approval via reactions. `commands/emoji/` contains the submission command, slot checker, and resizer tool link.
 
 **Directory layout:**
+
 - `commands/<category>/` — Slash commands organized by feature (calendar, emoji, utility)
 - `events/` — Discord.js event handlers (ready, interactionCreate, voiceStateUpdate)
 - `utilities/` — Business logic modules

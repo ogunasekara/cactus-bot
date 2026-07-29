@@ -36,6 +36,7 @@ The event system has been completely revamped to move away from Google Calendar 
 ## Features
 
 ### Event Management
+
 - ✅ Create events with title, description, start/end times, and location
 - ✅ Update existing events (only by event creator)
 - ✅ Delete events (only by event creator)
@@ -45,6 +46,7 @@ The event system has been completely revamped to move away from Google Calendar 
 - ✅ Advanced search with multiple criteria
 
 ### Data Storage
+
 - ✅ Local JSON file storage (default)
 - ✅ Extensible storage interface for database integration
 - ✅ Automatic data directory creation
@@ -52,6 +54,7 @@ The event system has been completely revamped to move away from Google Calendar 
 - ✅ Timestamp tracking (created/updated)
 
 ### Security & Validation
+
 - ✅ User ownership validation for updates/deletes
 - ✅ Date/time validation
 - ✅ Input sanitization
@@ -60,21 +63,25 @@ The event system has been completely revamped to move away from Google Calendar 
 ## Usage Examples
 
 ### Creating an Event
+
 ```
 /create-event title:"Team Meeting" description:"Weekly team sync" start_time:"2024-01-15 14:00" end_time:"2024-01-15 15:00" location:"Conference Room A"
 ```
 
 ### Listing Events
+
 ```
 /list-events days:7
 ```
 
 ### Updating an Event
+
 ```
 /update-event event_id:"abc123" title:"Updated Meeting Title" location:"New Location"
 ```
 
 ### Deleting an Event
+
 ```
 /delete-event event_id:"abc123"
 ```
@@ -108,15 +115,15 @@ The system is designed to be easily extensible for database integration. Here's 
 ### Example: Using Database Storage
 
 ```javascript
-const DatabaseStorage = require('./utilities/database_storage_example');
-const EventManager = require('./utilities/event_manager');
+const DatabaseStorage = require("./utilities/database_storage_example");
+const EventManager = require("./utilities/event_manager");
 
 // Configure database connection
 const dbConfig = {
-  host: 'localhost',
-  user: 'username',
-  password: 'password',
-  database: 'events_db'
+  host: "localhost",
+  user: "username",
+  password: "password",
+  database: "events_db",
 };
 
 // Create storage backend
@@ -192,4 +199,4 @@ The system has been completely decoupled from Google Calendar API:
 - [ ] Event sharing between users
 - [ ] Calendar export functionality
 - [ ] Event templates
-- [ ] Bulk operations 
+- [ ] Bulk operations

@@ -16,22 +16,22 @@ A Discord.js v14 bot for the Tucsonians Discord server. It provides event manage
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
-| `/create-event` | Create a new event with title, start time, and optional details |
-| `/events` | List upcoming events (default: next 14 days) |
-| `/update-event` | Update an existing event (creator only) |
-| `/delete-event` | Delete an event (creator only) |
-| `/emoji` | Submit an image to create a custom emoji (admin approved) |
-| `/emoji_site` | Link to emoji resizer tool |
-| `/slots` | Check available emoji slots |
-| `/points check` | Check your or another user's cactus points |
-| `/points leaderboard` | View the top 10 users by total points |
-| `/roll` | Roll a die with n sides |
-| `/ping` | Pong! |
-| `/server` | Display server name and member count |
-| `/user` | Display username and join date |
-| `/eric` | We love you, Eric! |
+| Command               | Description                                                     |
+| --------------------- | --------------------------------------------------------------- |
+| `/create-event`       | Create a new event with title, start time, and optional details |
+| `/events`             | List upcoming events (default: next 14 days)                    |
+| `/update-event`       | Update an existing event (creator only)                         |
+| `/delete-event`       | Delete an event (creator only)                                  |
+| `/emoji`              | Submit an image to create a custom emoji (admin approved)       |
+| `/emoji_site`         | Link to emoji resizer tool                                      |
+| `/slots`              | Check available emoji slots                                     |
+| `/points check`       | Check your or another user's cactus points                      |
+| `/points leaderboard` | View the top 10 users by total points                           |
+| `/roll`               | Roll a die with n sides                                         |
+| `/ping`               | Pong!                                                           |
+| `/server`             | Display server name and member count                            |
+| `/user`               | Display username and join date                                  |
+| `/eric`               | We love you, Eric!                                              |
 
 ## Development
 
@@ -77,6 +77,7 @@ A Discord.js v14 bot for the Tucsonians Discord server. It provides event manage
    - `docker compose down`
 
 Notes:
+
 - Event data is persisted in `./data` on your host.
 - `config/config.json` is mounted read-only into the container.
 
