@@ -1,5 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const EventManager = require("../../utilities/event_manager");
+const { createEventActionEmbed } = require("../../utilities/event_embeds");
 
 const eventManager = new EventManager();
 
@@ -115,42 +116,10 @@ module.exports = {
       // Update the event
       const updatedEvent = await eventManager.updateEvent(eventId, updateData);
 
-      // Create embed response
-      const embed = new EmbedBuilder()
-        .setColor(0x00ff00)
-        .setTitle("✅ Event Updated Successfully")
-        .addFields(
-          { name: "Title", value: updatedEvent.title, inline: true },
-          {
-            name: "Start Time",
-            value: new Date(updatedEvent.startTime).toLocaleString(),
-            inline: true,
-          },
-          { name: "Event ID", value: updatedEvent.id, inline: true },
-        )
-        .setTimestamp();
-
-      if (updatedEvent.description) {
-        embed.addFields({
-          name: "Description",
-          value: updatedEvent.description,
-          inline: false,
-        });
-      }
-      if (updatedEvent.endTime) {
-        embed.addFields({
-          name: "End Time",
-          value: new Date(updatedEvent.endTime).toLocaleString(),
-          inline: true,
-        });
-      }
-      if (updatedEvent.location) {
-        embed.addFields({
-          name: "Location",
-          value: updatedEvent.location,
-          inline: true,
-        });
-      }
+      const embed = createEventActionEmbed(updatedEvent, {
+        color: 0x00ff00,
+        title: "✅ Event Updated Successfully",
+      });
 
       await interaction.editReply({ embeds: [embed] });
     } catch (error) {
