@@ -88,6 +88,6 @@ module.exports = {
 module.exports.activeVoiceSessions = activeVoiceSessions;
 
 // Function to set the timer reference (called from ready event)
-module.exports.setTimer = function (timer) {
+module.exports.setTimer = function(timer) {
   timer.setActiveVoiceSessions(activeVoiceSessions);
 };
